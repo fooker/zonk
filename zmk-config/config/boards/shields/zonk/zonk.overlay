@@ -1,0 +1,43 @@
+/*
+ * Copyright (c) 2022 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+/ {
+  model = "Zonk!";
+
+  chosen {
+    zmk,kscan = &kscan0;
+    zmk,battery = &vbatt;
+  };
+
+  kscan0: kscan0 {
+    compatible = "zmk,kscan-gpio-direct";
+    wakeup-source;
+    input-gpios
+            = <&xiao_d 0 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            , <&xiao_d 1 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            , <&xiao_d 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            , <&xiao_d 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            ;
+  };
+
+  encoder: encoder {
+    compatible = "alps,ec11";
+    a-gpios = <&xiao_d 9 GPIO_PULL_UP>;
+    b-gpios = <&xiao_d 8 GPIO_PULL_UP>;
+    steps = <80>;
+    status = "okay";
+  };
+
+  sensors: sensors {
+    compatible = "zmk,keymap-sensors";
+    sensors = <&encoder>;
+    triggers-per-rotation = <20>;
+  };
+
+  vbatt: vbatt {
+    compatible = "zmk,battery-nrf-vddh";
+  };
+};

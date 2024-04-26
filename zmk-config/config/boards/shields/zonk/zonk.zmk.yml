@@ -1,0 +1,10 @@
+file_format: "1"
+id: zonk
+name: ZONK
+type: shield
+url: https://github.com/fooker/zonk
+requires: [seeeduino_xiao_ble]
+features:
+  - keys
+  - encoder
+
